@@ -31,12 +31,6 @@
 #   make
 #
 
-
-## Project name to use as command prefix.
-
-project(SUPERTUX)
-
-
 ### CMake configuration
 
 cmake_minimum_required(VERSION 3.1)
@@ -44,7 +38,12 @@ if(COMMAND cmake_policy)
   cmake_policy(SET CMP0003 NEW)
   cmake_policy(SET CMP0008 NEW)
   cmake_policy(SET CMP0023 NEW)
+  cmake_policy(SET CMP0048 NEW)
 endif(COMMAND cmake_policy)
+
+## Project name to use as command prefix.
+
+project(SUPERTUX VERSION 0.6.2)
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -409,6 +408,12 @@ if(CMAKE_SYSTEM_PROCESSOR MATCHES "^ppc.*")
   include_directories(${CMAKE_CURRENT_SOURCE_DIR}/src/ppc)
 endif()
 
+# Build dependencies
+function(build_dependencies)
+  set(BUILD_TESTS OFF)
+  add_subdirectory(external/wstsound/ EXCLUDE_FROM_ALL)
+endfunction()
+build_dependencies()
 
 ## Also build external/squirrel
 
@@ -862,6 +867,7 @@ endif()
 target_link_libraries(supertux2_lib PUBLIC squirrel_lib)
 target_link_libraries(supertux2_lib PUBLIC sqstdlib_lib)
 target_link_libraries(supertux2_lib PUBLIC tinygettext_lib)
+target_link_libraries(supertux2_lib PUBLIC wstsound)
 target_link_libraries(supertux2_lib PUBLIC sexp)
 target_link_libraries(supertux2_lib PUBLIC savepng)
 if(ENABLE_DISCORD)
