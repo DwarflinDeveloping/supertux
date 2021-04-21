@@ -78,6 +78,7 @@ jobs:
             gcc-multilib \
             g++-multilib \
             libgtest-dev \
+            libfmt-dev \
             libc++-dev \
             libogg-dev \
             libvorbis-dev \
@@ -107,6 +108,7 @@ jobs:
             gcc-multilib \
             g++-multilib \
             libgtest-dev:i386 \
+            libfmt-dev:i386 \
             libogg-dev:i386 \
             libvorbis-dev:i386 \
             libopenal-dev:i386 \
@@ -126,7 +128,7 @@ jobs:
         if: ${{ matrix.os == 'macos-latest' }}
         run: |
           brew install cmake googletest bash libogg libvorbis glew openal-soft sdl2 sdl2_image sdl2_ttf \
-                freetype harfbuzz fribidi glib gtk-doc glbinding libraqm
+                freetype harfbuzz fribidi glib gtk-doc glbinding libraqm fmt
           # Something funky happens with freetype if mono is left
           sudo mv /Library/Frameworks/Mono.framework /Library/Frameworks/Mono.framework-disabled
       - name: Set compiler (gcc)
@@ -262,12 +264,12 @@ jobs:
           vcpkg install gtest:$Env:ARCH-windows
           vcpkg install boost-date-time:$Env:ARCH-windows
           vcpkg install boost-filesystem:$Env:ARCH-windows
-          vcpkg install boost-format:$Env:ARCH-windows
           vcpkg install boost-iostreams:$Env:ARCH-windows
           vcpkg install boost-locale:$Env:ARCH-windows
           vcpkg install boost-optional:$Env:ARCH-windows
           vcpkg install boost-system:$Env:ARCH-windows
           vcpkg install curl:$Env:ARCH-windows
+          vcpkg install fmt:$Env:ARCH-windows
           vcpkg install --recurse freetype:$Env:ARCH-windows
           vcpkg install glew:$Env:ARCH-windows
           vcpkg install libogg:$Env:ARCH-windows

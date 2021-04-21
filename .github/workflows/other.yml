@@ -58,6 +58,7 @@ jobs:
             pkg install -y git
             pkg install -y cmake
             pkg install -y googletest
+            pkg install -y libfmt
             pkg install -y sdl2
             pkg install -y sdl2_image
             pkg install -y openal-soft
