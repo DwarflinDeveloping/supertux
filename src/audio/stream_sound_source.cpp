@@ -39,13 +39,13 @@ StreamSoundSource::StreamSoundSource() :
     log_warning << e.what() << std::endl;
   }
   //add me to update list
-  sound_manager().register_for_update( this );
+  supertux::SoundManager::current()->register_for_update( this );
 }
 
 StreamSoundSource::~StreamSoundSource()
 {
   //don't update me any longer
-  sound_manager().remove_from_update( this );
+  supertux::SoundManager::current()->remove_from_update( this );
   m_file.reset();
   stop();
   alDeleteBuffers(STREAMFRAGMENTS, m_buffers);
