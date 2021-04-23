@@ -20,6 +20,8 @@
 #include <stdexcept>
 #include <string>
 
+namespace supertux {
+
 class SoundError final : public std::exception
 {
 public:
@@ -31,6 +33,8 @@ public:
 private:
   std::string m_message;
 };
+
+} // namespace supertux
 
 #endif
 
