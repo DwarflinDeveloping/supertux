@@ -27,6 +27,12 @@
 #include "audio/stream_sound_source.hpp"
 #include "util/log.hpp"
 
+SoundManager& sound_manager()
+{
+  static SoundManager sound_mgr;
+  return sound_mgr;
+}
+
 namespace supertux {
 
 SoundManager::SoundManager() :

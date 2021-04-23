@@ -71,7 +71,7 @@ AmbientSound::AmbientSound(const ReaderMapping& mapping) :
 
   if (!Editor::is_active()) {
     sound_source.reset(); // not playing at the beginning
-    SoundManager::current()->preload(sample);
+    sound_manager().preload(sample);
   }
   latency=0;
 }
@@ -102,7 +102,7 @@ AmbientSound::AmbientSound(const Vector& pos, float factor, float bias, float vo
 
   if (!Editor::is_active()) {
     sound_source.reset(); // not playing at the beginning
-    SoundManager::current()->preload(sample);
+    sound_manager().preload(sample);
   }
 }
 
@@ -143,7 +143,7 @@ AmbientSound::start_playing()
   if (Editor::is_active()) return;
 
   try {
-    sound_source = SoundManager::current()->create_sound_source(sample);
+    sound_source = sound_manager().create_sound_source(sample);
     if (!sound_source)
       throw std::runtime_error("file not found");
 

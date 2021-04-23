@@ -73,8 +73,8 @@ WillOWisp::WillOWisp(const ReaderMapping& reader) :
   init_path(reader, running);
 
   m_countMe = false;
-  SoundManager::current()->preload(SOUNDFILE);
-  SoundManager::current()->preload("sounds/warp.wav");
+  sound_manager().preload(SOUNDFILE);
+  sound_manager().preload("sounds/warp.wav");
 
   m_lightsprite->set_color(Color(m_color.red * 0.2f,
                                  m_color.green * 0.2f,
@@ -177,7 +177,7 @@ WillOWisp::activate()
   if (Editor::is_active())
     return;
 
-  m_sound_source = SoundManager::current()->create_sound_source(SOUNDFILE);
+  m_sound_source = sound_manager().create_sound_source(SOUNDFILE);
   m_sound_source->set_position(get_pos());
   m_sound_source->set_looping(true);
   m_sound_source->set_gain(1.0f);
@@ -248,7 +248,7 @@ WillOWisp::collision_player(Player& player, const CollisionHit& ) {
   } else {
     GameSession::current()->respawn(m_target_sector, m_target_spawnpoint);
   }
-  SoundManager::current()->play("sounds/warp.wav");
+  sound_manager().play("sounds/warp.wav");
 
   return CONTINUE;
 }

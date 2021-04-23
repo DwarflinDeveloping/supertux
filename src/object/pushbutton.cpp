@@ -33,7 +33,7 @@ PushButton::PushButton(const ReaderMapping& mapping) :
   script(),
   state(OFF)
 {
-  SoundManager::current()->preload(BUTTON_SOUND);
+  sound_manager().preload(BUTTON_SOUND);
   set_action("off", -1);
   m_col.m_bbox.set_size(m_sprite->get_current_hitbox_width(), m_sprite->get_current_hitbox_height());
 
@@ -87,7 +87,7 @@ PushButton::collision(GameObject& other, const CollisionHit& hit)
   set_pos(get_pos() + Vector(0, old_bbox_height - new_bbox_height));
 
   // play sound
-  SoundManager::current()->play(BUTTON_SOUND);
+  sound_manager().play(BUTTON_SOUND);
 
   // run script
   Sector::get().run_script(script, "PushButton");

@@ -28,8 +28,8 @@ MoleRock::MoleRock(const ReaderMapping& reader) :
 {
   m_physic.enable_gravity(true);
   m_countMe = false;
-  SoundManager::current()->preload("sounds/darthit.wav");
-  SoundManager::current()->preload("sounds/stomp.wav");
+  sound_manager().preload("sounds/darthit.wav");
+  sound_manager().preload("sounds/stomp.wav");
 }
 
 MoleRock::MoleRock(const Vector& pos, const Vector& velocity, const BadGuy* parent_ = nullptr) :
@@ -39,8 +39,8 @@ MoleRock::MoleRock(const Vector& pos, const Vector& velocity, const BadGuy* pare
 {
   m_physic.enable_gravity(true);
   m_countMe = false;
-  SoundManager::current()->preload("sounds/darthit.wav");
-  SoundManager::current()->preload("sounds/stomp.wav");
+  sound_manager().preload("sounds/darthit.wav");
+  sound_manager().preload("sounds/stomp.wav");
 }
 
 bool
@@ -75,7 +75,7 @@ MoleRock::active_update(float dt_sec)
 void
 MoleRock::collision_solid(const CollisionHit& )
 {
-  SoundManager::current()->play("sounds/darthit.wav", get_pos());
+  sound_manager().play("sounds/darthit.wav", get_pos());
   remove_me();
 }
 
@@ -86,7 +86,7 @@ MoleRock::collision_badguy(BadGuy& badguy, const CollisionHit& )
   if (&badguy == parent) {
     return FORCE_MOVE;
   }
-  SoundManager::current()->play("sounds/stomp.wav", get_pos());
+  sound_manager().play("sounds/stomp.wav", get_pos());
   remove_me();
   badguy.kill_fall();
   return ABORT_MOVE;
@@ -95,7 +95,7 @@ MoleRock::collision_badguy(BadGuy& badguy, const CollisionHit& )
 HitResponse
 MoleRock::collision_player(Player& player, const CollisionHit& hit)
 {
-  SoundManager::current()->play("sounds/stomp.wav", get_pos());
+  sound_manager().play("sounds/stomp.wav", get_pos());
   remove_me();
   return BadGuy::collision_player(player, hit);
 }

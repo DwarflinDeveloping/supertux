@@ -32,22 +32,22 @@ Flower::Flower(BonusType _type) :
 
   if (type == FIRE_BONUS) {
     sprite = SpriteManager::current()->create("images/powerups/fireflower/fireflower.sprite");
-    SoundManager::current()->preload("sounds/fire-flower.wav");
+    sound_manager().preload("sounds/fire-flower.wav");
     lightsprite->set_color(Color(0.3f, 0.0f, 0.0f));
   }
   else if (type == ICE_BONUS) {
     sprite = SpriteManager::current()->create("images/powerups/iceflower/iceflower.sprite");
-    SoundManager::current()->preload("sounds/fire-flower.wav");
+    sound_manager().preload("sounds/fire-flower.wav");
     lightsprite->set_color(Color(0.0f, 0.1f, 0.2f));
   }
   else if (type == AIR_BONUS) {
     sprite = SpriteManager::current()->create("images/powerups/airflower/airflower.sprite");
-    SoundManager::current()->preload("sounds/fire-flower.wav");
+    sound_manager().preload("sounds/fire-flower.wav");
     lightsprite->set_color(Color(0.15f, 0.0f, 0.15f));
   }
   else if (type == EARTH_BONUS) {
     sprite = SpriteManager::current()->create("images/powerups/earthflower/earthflower.sprite");
-    SoundManager::current()->preload("sounds/fire-flower.wav");
+    sound_manager().preload("sounds/fire-flower.wav");
     lightsprite->set_color(Color(0.0f, 0.3f, 0.0f));
   } else {
     assert(false);
@@ -78,7 +78,7 @@ Flower::collision(GameObject& other, const CollisionHit& )
   if (!player->add_bonus(type, true))
     return FORCE_MOVE;
 
-  SoundManager::current()->play("sounds/fire-flower.wav");
+  sound_manager().play("sounds/fire-flower.wav");
   remove_me();
   return ABORT_MOVE;
 }

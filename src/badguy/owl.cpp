@@ -144,7 +144,7 @@ Owl::collision_squished(GameObject&)
 void
 Owl::kill_fall()
 {
-  SoundManager::current()->play("sounds/fall.wav", get_pos());
+  sound_manager().play("sounds/fall.wav", get_pos());
   m_physic.set_velocity_y(0);
   m_physic.set_acceleration_y(0);
   m_physic.enable_gravity(true);

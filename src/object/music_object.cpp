@@ -52,19 +52,19 @@ MusicObject::play_music(MusicType type)
   switch (m_currentmusic)
   {
     case LEVEL_MUSIC:
-      SoundManager::current()->play_music(m_music);
+      sound_manager().play_music(m_music);
       break;
 
     case HERRING_MUSIC:
-      SoundManager::current()->play_music("music/misc/invincible.ogg");
+      sound_manager().play_music("music/misc/invincible.ogg");
       break;
 
     case HERRING_WARNING_MUSIC:
-      SoundManager::current()->stop_music(TUX_INVINCIBLE_TIME_WARNING);
+      sound_manager().stop_music(TUX_INVINCIBLE_TIME_WARNING);
       break;
 
     default:
-      SoundManager::current()->play_music("");
+      sound_manager().play_music("");
       break;
   }
 }
@@ -72,14 +72,14 @@ MusicObject::play_music(MusicType type)
 void
 MusicObject::resume_music()
 {
-  if (SoundManager::current()->get_current_music() == m_music)
+  if (sound_manager().get_current_music() == m_music)
   {
-    SoundManager::current()->resume_music(3.2f);
+    sound_manager().resume_music(3.2f);
   }
   else
   {
-    SoundManager::current()->stop_music();
-    SoundManager::current()->play_music(m_music, true);
+    sound_manager().stop_music();
+    sound_manager().play_music(m_music, true);
   }
 }
 

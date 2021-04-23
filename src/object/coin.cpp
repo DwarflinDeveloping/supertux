@@ -36,7 +36,7 @@ Coin::Coin(const Vector& pos) :
   m_physic(),
   m_collect_script()
 {
-  SoundManager::current()->preload("sounds/coin.wav");
+  sound_manager().preload("sounds/coin.wav");
 }
 
 Coin::Coin(const ReaderMapping& reader) :
@@ -52,7 +52,7 @@ Coin::Coin(const ReaderMapping& reader) :
 
   reader.get("collect-script", m_collect_script, "");
 
-  SoundManager::current()->preload("sounds/coin.wav");
+  sound_manager().preload("sounds/coin.wav");
 }
 
 void
@@ -163,11 +163,11 @@ Coin::collect()
   }
   sound_timer.start(1);
 
-  std::unique_ptr<SoundSource> soundSource = SoundManager::current()->create_sound_source("sounds/coin.wav");
+  std::unique_ptr<SoundSource> soundSource = sound_manager().create_sound_source("sounds/coin.wav");
   soundSource->set_position(get_pos());
   soundSource->set_pitch(pitch);
   soundSource->play();
-  SoundManager::current()->manage_source(std::move(soundSource));
+  sound_manager().manage_source(std::move(soundSource));
 
   Sector::get().get_player().get_status().add_coins(1, false);
   Sector::get().add<BouncyCoin>(get_pos(), false, get_sprite_name());
@@ -197,7 +197,7 @@ HeavyCoin::HeavyCoin(const Vector& pos, const Vector& init_velocity) :
   m_last_hit()
 {
   m_physic.enable_gravity(true);
-  SoundManager::current()->preload("sounds/coin2.ogg");
+  sound_manager().preload("sounds/coin2.ogg");
   set_group(COLGROUP_MOVING);
   m_physic.set_velocity(init_velocity);
 }
@@ -208,7 +208,7 @@ HeavyCoin::HeavyCoin(const ReaderMapping& reader) :
   m_last_hit()
 {
   m_physic.enable_gravity(true);
-  SoundManager::current()->preload("sounds/coin2.ogg");
+  sound_manager().preload("sounds/coin2.ogg");
   set_group(COLGROUP_MOVING);
 }
 
@@ -227,7 +227,7 @@ HeavyCoin::collision_solid(const CollisionHit& hit)
 
   if (hit.bottom) {
     if (m_physic.get_velocity_y() > clink_threshold && !m_last_hit.bottom)
-        SoundManager::current()->play("sounds/coin2.ogg");
+        sound_manager().play("sounds/coin2.ogg");
     if (m_physic.get_velocity_y() > 200) {// lets some coins bounce
       m_physic.set_velocity_y(-99);
     } else {
@@ -239,12 +239,12 @@ HeavyCoin::collision_solid(const CollisionHit& hit)
     if ((m_physic.get_velocity_x() > clink_threshold ||
          m_physic.get_velocity_x()< -clink_threshold) &&
          hit.right != m_last_hit.right && hit.left != m_last_hit.left)
-      SoundManager::current()->play("sounds/coin2.ogg");
+      sound_manager().play("sounds/coin2.ogg");
     m_physic.set_velocity_x(-m_physic.get_velocity_x());
   }
   if (hit.top) {
     if (m_physic.get_velocity_y() < -clink_threshold && !m_last_hit.top)
-      SoundManager::current()->play("sounds/coin2.ogg");
+      sound_manager().play("sounds/coin2.ogg");
     m_physic.set_velocity_y(-m_physic.get_velocity_y());
   }
 

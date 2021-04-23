@@ -28,7 +28,7 @@ InvisibleBlock::InvisibleBlock(const Vector& pos) :
    visible(false)
 {
   m_col.m_bbox.set_pos(pos);
-  SoundManager::current()->preload("sounds/brick.wav");
+  sound_manager().preload("sounds/brick.wav");
   m_sprite->set_action("default-editor");
 }
 
@@ -36,7 +36,7 @@ InvisibleBlock::InvisibleBlock(const ReaderMapping& mapping) :
    Block(mapping, "images/objects/bonus_block/invisibleblock.sprite"),
    visible(false)
 {
-  SoundManager::current()->preload("sounds/brick.wav");
+  sound_manager().preload("sounds/brick.wav");
 }
 
 void
@@ -72,7 +72,7 @@ InvisibleBlock::collision(GameObject& other, const CollisionHit& hit_)
 void
 InvisibleBlock::hit(Player& player)
 {
-  SoundManager::current()->play("sounds/brick.wav");
+  sound_manager().play("sounds/brick.wav");
 
   if (visible)
     return;

@@ -41,7 +41,7 @@ Lantern::Lantern(const ReaderMapping& reader) :
   }
   lightsprite->set_blend(Blend::ADD);
   updateColor();
-  SoundManager::current()->preload("sounds/willocatch.wav");
+  sound_manager().preload("sounds/willocatch.wav");
 }
 
 Lantern::Lantern(const Vector& pos) :
@@ -51,7 +51,7 @@ Lantern::Lantern(const Vector& pos) :
 {
   lightsprite->set_blend(Blend::ADD);
   updateColor();
-  SoundManager::current()->preload("sounds/willocatch.wav");
+  sound_manager().preload("sounds/willocatch.wav");
 }
 
 ObjectSettings
@@ -98,7 +98,7 @@ HitResponse Lantern::collision(GameObject& other, const CollisionHit& hit) {
     WillOWisp* wow = dynamic_cast<WillOWisp*>(&other);
     if (wow) {
       // collided with WillOWisp while grabbed and unlit
-      SoundManager::current()->play("sounds/willocatch.wav");
+      sound_manager().play("sounds/willocatch.wav");
       lightcolor = wow->get_color();
       updateColor();
       wow->vanish();
@@ -106,7 +106,7 @@ HitResponse Lantern::collision(GameObject& other, const CollisionHit& hit) {
     TreeWillOWisp* twow = dynamic_cast<TreeWillOWisp*>(&other);
     if (twow) {
       // collided with TreeWillOWisp while grabbed and unlit
-      SoundManager::current()->play("sounds/willocatch.wav");
+      sound_manager().play("sounds/willocatch.wav");
       lightcolor = twow->get_color();
       updateColor();
       twow->vanish();

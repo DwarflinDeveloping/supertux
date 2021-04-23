@@ -33,7 +33,7 @@ MrBomb::MrBomb(const ReaderMapping& reader) :
   max_drop_height = 16;
 
   //Prevent stutter when Tux jumps on Mr Bomb
-  SoundManager::current()->preload("sounds/explosion.wav");
+  sound_manager().preload("sounds/explosion.wav");
 
   //Check if we need another sprite
   if ( !reader.get( "sprite", m_sprite_name ) ){

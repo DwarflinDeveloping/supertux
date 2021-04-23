@@ -43,7 +43,7 @@ TreeWillOWisp::TreeWillOWisp(GhostTree* tree_, const Vector& pos,
   tree(tree_),
   suck_target()
 {
-  SoundManager::current()->preload(TREEWILLOSOUND);
+  sound_manager().preload(TREEWILLOSOUND);
   set_colgroup_active(COLGROUP_MOVING);
 }
 
@@ -54,7 +54,7 @@ TreeWillOWisp::~TreeWillOWisp()
 void
 TreeWillOWisp::activate()
 {
-  sound_source = SoundManager::current()->create_sound_source(TREEWILLOSOUND);
+  sound_source = sound_manager().create_sound_source(TREEWILLOSOUND);
   sound_source->set_position(get_pos());
   sound_source->set_looping(true);
   sound_source->set_gain(1.0f);

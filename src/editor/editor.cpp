@@ -622,7 +622,7 @@ Editor::setup()
     m_level->reactivate();
     m_sector->activate(m_sector->get_player().get_pos());
     MenuManager::instance().clear_menu_stack();
-    SoundManager::current()->stop_music();
+    sound_manager().stop_music();
     m_deactivate_request = false;
     m_enabled = true;
     m_toolbox_widget->update_mouse_icon();

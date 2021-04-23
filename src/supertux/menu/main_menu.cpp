@@ -84,7 +84,7 @@ MainMenu::menu_action(MenuItem& item)
      case MNID_CREDITS:
     {
       // Credits Level
-      SoundManager::current()->stop_music(0.2f);
+      sound_manager().stop_music(0.2f);
       std::unique_ptr<World> world = World::from_directory("levels/misc");
       GameManager::current()->start_level(*world, "credits.stl");
     }
@@ -95,7 +95,7 @@ MainMenu::menu_action(MenuItem& item)
         MenuManager::instance().clear_menu_stack();
         std::unique_ptr<Screen> screen(new Editor());
         auto fade = std::make_unique<FadeToBlack>(FadeToBlack::FADEOUT, 0.5f);
-        SoundManager::current()->stop_music(0.5);
+        sound_manager().stop_music(0.5);
         ScreenManager::current()->push_screen(move(screen),move(fade));
         //Editor::current()->setup();
       }
@@ -108,7 +108,7 @@ MainMenu::menu_action(MenuItem& item)
     case MNID_QUITMAINMENU:
       MenuManager::instance().clear_menu_stack();
       ScreenManager::current()->quit(std::unique_ptr<ScreenFade>(new FadeToBlack(FadeToBlack::FADEOUT, 0.25f)));
-      SoundManager::current()->stop_music(0.25);
+      sound_manager().stop_music(0.25);
       break;
   }
 }

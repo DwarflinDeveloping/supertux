@@ -58,11 +58,11 @@ IceCrusher::IceCrusher(const ReaderMapping& reader) :
   if ( m_sprite_name.find("rock_crusher") != std::string::npos ||
       m_sprite_name.find("moss_crusher") != std::string::npos )
   {
-    SoundManager::current()->preload("sounds/thud.ogg");
+    sound_manager().preload("sounds/thud.ogg");
   }
   else
   {
-    SoundManager::current()->preload("sounds/brick.wav");
+    sound_manager().preload("sounds/brick.wav");
   }
 
   set_state(state, true);
@@ -145,7 +145,7 @@ IceCrusher::collision(GameObject& other, const CollisionHit& hit)
   // If the other object is the player, and the collision is at the
   // bottom of the ice crusher, hurt the player.
   if (player && hit.bottom && state == CRUSHING) {
-    SoundManager::current()->play("sounds/brick.wav");
+    sound_manager().play("sounds/brick.wav");
     set_state(RECOVERING);
     if (player->is_invincible()) {
       return ABORT_MOVE;
@@ -177,7 +177,7 @@ IceCrusher::collision_solid(const CollisionHit& hit)
         if (ic_size == LARGE) {
           cooldown_timer = PAUSE_TIME_LARGE;
           Sector::get().get_camera().shake (0.125f, 0.0f, 16.0f);
-          SoundManager::current()->play("sounds/brick.wav");
+          sound_manager().play("sounds/brick.wav");
           // throw some particles, bigger and more for large icecrusher
           for (int j = 0; j < 9; j++)
           {
@@ -197,11 +197,11 @@ IceCrusher::collision_solid(const CollisionHit& hit)
           if ( m_sprite_name.find("rock_crusher") != std::string::npos ||
               m_sprite_name.find("moss_crusher") != std::string::npos )
           {
-            SoundManager::current()->play("sounds/thud.ogg");
+            sound_manager().play("sounds/thud.ogg");
           }
           else
           {
-            SoundManager::current()->play("sounds/brick.wav");
+            sound_manager().play("sounds/brick.wav");
           }
           // throw some particles
           for (int j = 0; j < 5; j++)
@@ -228,7 +228,7 @@ IceCrusher::collision_solid(const CollisionHit& hit)
     {
           cooldown_timer = PAUSE_TIME_LARGE;
           Sector::get().get_camera().shake (0.125f, 0.0f, 16.0f);
-          SoundManager::current()->play("sounds/brick.wav");
+          sound_manager().play("sounds/brick.wav");
         }
 		  else
     {
@@ -237,11 +237,11 @@ IceCrusher::collision_solid(const CollisionHit& hit)
           if ( m_sprite_name.find("rock_crusher") != std::string::npos ||
               m_sprite_name.find("moss_crusher") != std::string::npos )
           {
-            SoundManager::current()->play("sounds/thud.ogg");
+            sound_manager().play("sounds/thud.ogg");
           }
           else
           {
-            SoundManager::current()->play("sounds/brick.wav");
+            sound_manager().play("sounds/brick.wav");
           }
         }
 		set_state(RECOVERING_RIGHT);
@@ -254,7 +254,7 @@ IceCrusher::collision_solid(const CollisionHit& hit)
     {
           cooldown_timer = PAUSE_TIME_LARGE;
           Sector::get().get_camera().shake (0.125f, 0.0f, 16.0f);
-          SoundManager::current()->play("sounds/brick.wav");
+          sound_manager().play("sounds/brick.wav");
         }
 		  else
     {
@@ -263,11 +263,11 @@ IceCrusher::collision_solid(const CollisionHit& hit)
           if ( m_sprite_name.find("rock_crusher") != std::string::npos ||
               m_sprite_name.find("moss_crusher") != std::string::npos )
           {
-            SoundManager::current()->play("sounds/thud.ogg");
+            sound_manager().play("sounds/thud.ogg");
           }
           else
           {
-            SoundManager::current()->play("sounds/brick.wav");
+            sound_manager().play("sounds/brick.wav");
           }
         }
 		set_state(RECOVERING_LEFT);

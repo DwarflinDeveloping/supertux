@@ -45,7 +45,7 @@ Door::Door(const ReaderMapping& mapping) :
   sprite->set_action("closed");
   m_col.m_bbox.set_size(sprite->get_current_hitbox_width(), sprite->get_current_hitbox_height());
 
-  SoundManager::current()->preload("sounds/door.wav");
+  sound_manager().preload("sounds/door.wav");
 }
 
 Door::Door(int x, int y, const std::string& sector, const std::string& spawnpoint) :
@@ -62,7 +62,7 @@ Door::Door(int x, int y, const std::string& sector, const std::string& spawnpoin
   sprite->set_action("closed");
   m_col.m_bbox.set_size(sprite->get_current_hitbox_width(), sprite->get_current_hitbox_height());
 
-  SoundManager::current()->preload("sounds/door.wav");
+  sound_manager().preload("sounds/door.wav");
 }
 
 ObjectSettings
@@ -128,7 +128,7 @@ Door::event(Player& , EventType type)
       // if door was activated, start opening it
       if (type == EVENT_ACTIVATE) {
         state = OPENING;
-        SoundManager::current()->play("sounds/door.wav");
+        sound_manager().play("sounds/door.wav");
         sprite->set_action("opening", 1);
         ScreenManager::current()->set_screen_fade(std::make_unique<FadeToBlack>(FadeToBlack::FADEOUT, 1.0f));
       }

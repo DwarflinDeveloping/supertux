@@ -137,6 +137,8 @@ private:
 
 using SoundManager = supertux::SoundManager;
 
+SoundManager& sound_manager();
+
 #endif
 
 /* EOF */

@@ -69,7 +69,7 @@ Bumper::collision(GameObject& other, const CollisionHit& hit)
 	  float BOUNCE_DIR = left ? -BOUNCE_X : BOUNCE_X;
 	  player->get_physic().set_velocity(0.f, BOUNCE_Y);
     player->sideways_push(BOUNCE_DIR);
-    SoundManager::current()->play(TRAMPOLINE_SOUND);
+    sound_manager().play(TRAMPOLINE_SOUND);
     m_sprite->set_action((left ? "left-swinging" : "right-swinging"), 1);
   }
 	

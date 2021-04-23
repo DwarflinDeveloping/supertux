@@ -61,13 +61,13 @@ Firefly::Firefly(const ReaderMapping& mapping) :
 
   //Load sound
     if ( m_sprite_name.find("vbell", 0) != std::string::npos ) {
-      SoundManager::current()->preload("sounds/savebell_low.wav");
+      sound_manager().preload("sounds/savebell_low.wav");
     }
     else if ( m_sprite_name.find("torch", 0) != std::string::npos ) {
-      SoundManager::current()->preload("sounds/fire.ogg");
+      sound_manager().preload("sounds/fire.ogg");
     }
     else {
-      SoundManager::current()->preload("sounds/savebell2.wav");
+      sound_manager().preload("sounds/savebell2.wav");
     }
 }
 
@@ -123,13 +123,13 @@ Firefly::collision(GameObject& other, const CollisionHit& )
     }
 
     if ( m_sprite_name.find("vbell", 0) != std::string::npos ) {
-      SoundManager::current()->play("sounds/savebell_low.wav");
+      sound_manager().play("sounds/savebell_low.wav");
     }
     else if ( m_sprite_name.find("torch", 0) != std::string::npos) {
-      SoundManager::current()->play("sounds/fire.ogg");
+      sound_manager().play("sounds/fire.ogg");
     }
     else {
-      SoundManager::current()->play("sounds/savebell2.wav");
+      sound_manager().play("sounds/savebell2.wav");
     }
 
     m_sprite->set_action("ringing");

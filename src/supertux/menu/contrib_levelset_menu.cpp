@@ -72,7 +72,7 @@ ContribLevelsetMenu::menu_action(MenuItem& item)
 {
   if (dynamic_cast<ItemAction*>(&item))
   {
-    SoundManager::current()->stop_music();
+    sound_manager().stop_music();
 
     std::string filename = m_levelset->get_level_filename(item.get_id());
     std::string full_filename = FileSystem::join(m_world->get_basedir(), filename);

@@ -36,9 +36,9 @@ Stalactite::Stalactite(const ReaderMapping& mapping) :
 {
   m_countMe = false;
   set_colgroup_active(COLGROUP_TOUCHABLE);
-  SoundManager::current()->preload("sounds/cracking.wav");
-  SoundManager::current()->preload("sounds/sizzle.ogg");
-  SoundManager::current()->preload("sounds/icecrash.ogg");
+  sound_manager().preload("sounds/cracking.wav");
+  sound_manager().preload("sounds/sizzle.ogg");
+  sound_manager().preload("sounds/icecrash.ogg");
 }
 
 void
@@ -54,7 +54,7 @@ Stalactite::active_update(float dt_sec)
          && Sector::get().can_see_player(m_col.m_bbox.get_middle())) {
         timer.start(SHAKE_TIME);
         state = STALACTITE_SHAKING;
-        SoundManager::current()->play("sounds/cracking.wav", get_pos());
+        sound_manager().play("sounds/cracking.wav", get_pos());
       }
     }
   } else if (state == STALACTITE_SHAKING) {
@@ -78,7 +78,7 @@ Stalactite::squish()
   m_physic.set_velocity_y(0);
   set_state(STATE_SQUISHED);
   m_sprite->set_action("squished");
-  SoundManager::current()->play("sounds/icecrash.ogg", get_pos());
+  sound_manager().play("sounds/icecrash.ogg", get_pos());
   set_group(COLGROUP_MOVING_ONLY_STATIC);
   run_dead_script();
 }
@@ -131,8 +131,8 @@ Stalactite::collision_bullet(Bullet& bullet, const CollisionHit& )
     state = STALACTITE_SHAKING;
     bullet.remove_me();
     if (bullet.get_type() == FIRE_BONUS)
-      SoundManager::current()->play("sounds/sizzle.ogg", get_pos());
-    SoundManager::current()->play("sounds/cracking.wav", get_pos());
+      sound_manager().play("sounds/sizzle.ogg", get_pos());
+    sound_manager().play("sounds/cracking.wav", get_pos());
   }
 
   return FORCE_MOVE;

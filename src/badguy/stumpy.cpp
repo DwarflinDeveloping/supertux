@@ -37,7 +37,7 @@ Stumpy::Stumpy(const ReaderMapping& reader) :
 {
   walk_speed = STUMPY_SPEED;
   max_drop_height = 16;
-  SoundManager::current()->preload("sounds/mr_treehit.ogg");
+  sound_manager().preload("sounds/mr_treehit.ogg");
 }
 
 Stumpy::Stumpy(const Vector& pos, Direction d) :
@@ -47,7 +47,7 @@ Stumpy::Stumpy(const Vector& pos, Direction d) :
 {
   walk_speed = STUMPY_SPEED;
   max_drop_height = 16;
-  SoundManager::current()->preload("sounds/mr_treehit.ogg");
+  sound_manager().preload("sounds/mr_treehit.ogg");
   invincible_timer.start(INVINCIBLE_TIME);
 }
 
@@ -89,7 +89,7 @@ Stumpy::collision_squished(GameObject& object)
 
   // if we're still invincible, we ignore the hit
   if (mystate == STATE_INVINCIBLE) {
-    SoundManager::current()->play("sounds/mr_treehit.ogg", get_pos());
+    sound_manager().play("sounds/mr_treehit.ogg", get_pos());
     auto player = dynamic_cast<Player*>(&object);
     if (player) player->bounce(*this);
     return true;

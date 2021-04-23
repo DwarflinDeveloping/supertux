@@ -601,7 +601,7 @@ ScreenManager::run()
       fps_statistics.report_frame();
     }
 
-    SoundManager::current()->update();
+    sound_manager().update();
 
     handle_screen_switch();
   }

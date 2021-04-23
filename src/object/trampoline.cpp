@@ -37,7 +37,7 @@ Trampoline::Trampoline(const ReaderMapping& mapping) :
   Rock(mapping, "images/objects/trampoline/trampoline.sprite"),
   portable(true)
 {
-  SoundManager::current()->preload(TRAMPOLINE_SOUND);
+  sound_manager().preload(TRAMPOLINE_SOUND);
 
   //Check if this trampoline is not portable
   if (mapping.get("portable", portable)) {
@@ -55,7 +55,7 @@ Trampoline::Trampoline(const Vector& pos, bool port) :
   Rock(pos, "images/objects/trampoline/trampoline.sprite"),
   portable(port)
 {
-  SoundManager::current()->preload(TRAMPOLINE_SOUND);
+  sound_manager().preload(TRAMPOLINE_SOUND);
   if (!port) {
     m_sprite_name = "images/objects/trampoline/trampoline_fix.sprite";
     m_sprite = SpriteManager::current()->create(m_sprite_name);
@@ -93,7 +93,7 @@ Trampoline::collision(GameObject& other, const CollisionHit& hit)
         else
           vy = player->get_controller().hold(Control::JUMP) ? VY_MIN - 300 : VY_INITIAL - 40;
         player->get_physic().set_velocity_y(vy);
-        SoundManager::current()->play(TRAMPOLINE_SOUND);
+        sound_manager().play(TRAMPOLINE_SOUND);
         m_sprite->set_action("swinging", 1);
         return FORCE_MOVE;
       }
@@ -106,7 +106,7 @@ Trampoline::collision(GameObject& other, const CollisionHit& hit)
       if (hit.top && vy >= 0) {
         vy = VY_INITIAL;
         walking_badguy->set_velocity_y(vy);
-        SoundManager::current()->play(TRAMPOLINE_SOUND);
+        sound_manager().play(TRAMPOLINE_SOUND);
         m_sprite->set_action("swinging", 1);
         return FORCE_MOVE;
       }

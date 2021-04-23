@@ -72,10 +72,10 @@ BadGuy::BadGuy(const Vector& pos, Direction direction, const std::string& sprite
   m_floor_normal(),
   m_colgroup_active(COLGROUP_MOVING)
 {
-  SoundManager::current()->preload("sounds/squish.wav");
-  SoundManager::current()->preload("sounds/fall.wav");
-  SoundManager::current()->preload("sounds/splash.ogg");
-  SoundManager::current()->preload("sounds/fire.ogg");
+  sound_manager().preload("sounds/squish.wav");
+  sound_manager().preload("sounds/fall.wav");
+  sound_manager().preload("sounds/splash.ogg");
+  sound_manager().preload("sounds/fire.ogg");
 
   m_dir = (m_start_dir == Direction::AUTO) ? Direction::LEFT : m_start_dir;
   m_lightsprite->set_blend(Blend::ADD);
@@ -113,10 +113,10 @@ BadGuy::BadGuy(const ReaderMapping& reader, const std::string& sprite_name_, int
 
   reader.get("dead-script", m_dead_script);
 
-  SoundManager::current()->preload("sounds/squish.wav");
-  SoundManager::current()->preload("sounds/fall.wav");
-  SoundManager::current()->preload("sounds/splash.ogg");
-  SoundManager::current()->preload("sounds/fire.ogg");
+  sound_manager().preload("sounds/squish.wav");
+  sound_manager().preload("sounds/fall.wav");
+  sound_manager().preload("sounds/splash.ogg");
+  sound_manager().preload("sounds/fire.ogg");
 
   m_dir = (m_start_dir == Direction::AUTO) ? Direction::LEFT : m_start_dir;
   m_lightsprite->set_blend(Blend::ADD);
@@ -308,7 +308,7 @@ BadGuy::collision_tile(uint32_t tile_attributes)
   if (tile_attributes & Tile::WATER && !is_in_water())
   {
     m_in_water = true;
-    SoundManager::current()->play("sounds/splash.ogg", get_pos());
+    sound_manager().play("sounds/splash.ogg", get_pos());
   }
   if (!(tile_attributes & Tile::WATER) && is_in_water())
   {
@@ -488,7 +488,7 @@ BadGuy::kill_squished(GameObject& object)
 {
   if (!is_active()) return;
 
-  SoundManager::current()->play("sounds/squish.wav", get_pos());
+  sound_manager().play("sounds/squish.wav", get_pos());
   m_physic.enable_gravity(true);
   m_physic.set_velocity_x(0);
   m_physic.set_velocity_y(0);
@@ -509,7 +509,7 @@ BadGuy::kill_fall()
   if (!is_active()) return;
 
   if (m_frozen) {
-    SoundManager::current()->play("sounds/brick.wav");
+    sound_manager().play("sounds/brick.wav");
     Vector pr_pos;
     float cx = m_col.m_bbox.get_width() / 2;
     float cy = m_col.m_bbox.get_height() / 2;
@@ -527,7 +527,7 @@ BadGuy::kill_fall()
     run_dead_script();
     remove_me();
   } else {
-    SoundManager::current()->play("sounds/fall.wav", get_pos());
+    sound_manager().play("sounds/fall.wav", get_pos());
     m_physic.set_velocity_y(0);
     m_physic.set_acceleration_y(0);
     m_physic.enable_gravity(true);
@@ -779,11 +779,11 @@ BadGuy::ignite()
     // melt it!
     if (m_sprite->has_action("ground-melting-left") && on_ground()) {
       m_sprite->set_action(m_dir == Direction::LEFT ? "ground-melting-left" : "ground-melting-right", 1);
-      SoundManager::current()->play("sounds/splash.ogg", get_pos());
+      sound_manager().play("sounds/splash.ogg", get_pos());
       set_state(STATE_GROUND_MELTING);
     } else {
       m_sprite->set_action(m_dir == Direction::LEFT ? "melting-left" : "melting-right", 1);
-      SoundManager::current()->play("sounds/sizzle.ogg", get_pos());
+      sound_manager().play("sounds/sizzle.ogg", get_pos());
       set_state(STATE_MELTING);
     }
 
@@ -792,13 +792,13 @@ BadGuy::ignite()
   } else if (m_sprite->has_action("burning-left")) {
     // burn it!
     m_glowing = true;
-    SoundManager::current()->play("sounds/fire.ogg", get_pos());
+    sound_manager().play("sounds/fire.ogg", get_pos());
     m_sprite->set_action(m_dir == Direction::LEFT ? "burning-left" : "burning-right", 1);
     set_state(STATE_BURNING);
     run_dead_script();
   } else if (m_sprite->has_action("inside-melting-left")) {
     // melt it inside!
-    SoundManager::current()->play("sounds/splash.ogg", get_pos());
+    sound_manager().play("sounds/splash.ogg", get_pos());
     m_sprite->set_action(m_dir == Direction::LEFT ? "inside-melting-left" : "inside-melting-right", 1);
     set_state(STATE_INSIDE_MELTING);
     run_dead_script();

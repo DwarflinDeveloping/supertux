@@ -155,7 +155,7 @@ GameSession::restart_level(bool after_death)
   if (after_death == true) {
     music_object.resume_music();
   } else {
-    SoundManager::current()->stop_music();
+    sound_manager().stop_music();
     music_object.play_music(LEVEL_MUSIC);
   }
 
@@ -199,9 +199,9 @@ GameSession::toggle_pause()
     m_speed_before_pause = ScreenManager::current()->get_speed();
     ScreenManager::current()->set_speed(0);
     MenuManager::instance().set_menu(MenuStorage::GAME_MENU);
-    SoundManager::current()->pause_sounds();
+    sound_manager().pause_sounds();
     m_currentsector->stop_looping_sounds();
-    SoundManager::current()->pause_music();
+    sound_manager().pause_music();
     m_game_pause = true;
   }
 
@@ -218,7 +218,7 @@ GameSession::abort_level()
   currentStatus.coins = m_coins_at_start;
   currentStatus.max_fire_bullets = m_max_fire_bullets_at_start;
   currentStatus.max_ice_bullets = m_max_ice_bullets_at_start;
-  SoundManager::current()->stop_sounds();
+  sound_manager().stop_sounds();
 }
 
 bool
@@ -358,8 +358,8 @@ GameSession::update(float dt_sec, const Controller& controller)
   // Unpause the game if the menu has been closed
   if (m_game_pause && !MenuManager::instance().is_active()) {
     ScreenManager::current()->set_speed(m_speed_before_pause);
-    SoundManager::current()->resume_music();
-    SoundManager::current()->resume_sounds();
+    sound_manager().resume_music();
+    sound_manager().resume_sounds();
     assert(m_currentsector != nullptr);
     m_currentsector->play_looping_sounds();
     m_game_pause = false;
@@ -417,7 +417,7 @@ GameSession::update(float dt_sec, const Controller& controller)
     return;
 
   // update sounds
-  SoundManager::current()->set_listener_position(m_currentsector->get_camera().get_center());
+  sound_manager().set_listener_position(m_currentsector->get_camera().get_center());
 
   /* Handle music: */
   if (m_end_sequence)
@@ -588,7 +588,7 @@ GameSession::start_sequence(Sequence seq, const SequenceData* data)
   m_end_sequence = static_cast<EndSequence*>(&m_currentsector->add_object(std::move(end_sequence)));
   m_end_sequence->start();
 
-  SoundManager::current()->play_music("music/misc/leveldone.ogg", false);
+  sound_manager().play_music("music/misc/leveldone.ogg", false);
   m_currentsector->get_player().set_winning();
 
   // Stop all clocks.

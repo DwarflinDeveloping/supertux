@@ -29,7 +29,7 @@ Fireworks::Fireworks() :
   timer()
 {
   timer.start(.2f);
-  SoundManager::current()->preload("sounds/fireworks.wav");
+  sound_manager().preload("sounds/fireworks.wav");
 }
 
 void
@@ -46,7 +46,7 @@ Fireworks::update(float )
       pos, 0, 360, 140.0f, 140.0f,
       Vector(0, 0), 45, Color(red, green, 0.0f), 3, 1.3f,
       LAYER_FOREGROUND1+1);
-    SoundManager::current()->play("sounds/fireworks.wav");
+    sound_manager().play("sounds/fireworks.wav");
     timer.start(graphicsRandom.randf(1.0f, 1.5f));
   }
 }

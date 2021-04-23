@@ -48,7 +48,7 @@ WaterDrop::collision_solid(const CollisionHit& hit)
   if (hit.bottom && wd_state == WDS_FALLING) {
     wd_state = WDS_SPLASH;
     physic.enable_gravity(false);
-    SoundManager::current()->play("sounds/splash.ogg", get_pos());
+    sound_manager().play("sounds/splash.ogg", get_pos());
     m_sprite->set_action("splash", 1);
 
     // spawn water particles

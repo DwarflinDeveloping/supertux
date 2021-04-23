@@ -42,7 +42,7 @@ Flame::Flame(const ReaderMapping& reader) :
                                 m_start_position.y + sinf(angle) * radius));
   }
   m_countMe = false;
-  SoundManager::current()->preload(FLAME_SOUND);
+  sound_manager().preload(FLAME_SOUND);
 
   set_colgroup_active(COLGROUP_TOUCHABLE);
 
@@ -82,7 +82,7 @@ Flame::activate()
 {
   if (Editor::is_active())
     return;
-  sound_source = SoundManager::current()->create_sound_source(FLAME_SOUND);
+  sound_source = sound_manager().create_sound_source(FLAME_SOUND);
   sound_source->set_position(get_pos());
   sound_source->set_looping(true);
   sound_source->set_gain(1.0f);
@@ -105,7 +105,7 @@ Flame::kill_fall()
 void
 Flame::freeze()
 {
-  SoundManager::current()->play("sounds/sizzle.ogg", get_pos());
+  sound_manager().play("sounds/sizzle.ogg", get_pos());
   m_sprite->set_action("fade", 1);
   Sector::get().add<SpriteParticle>("images/particles/smoke.sprite",
                                          "default",

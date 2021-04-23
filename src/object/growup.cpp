@@ -32,7 +32,7 @@ GrowUp::GrowUp(Direction direction) :
 {
   physic.enable_gravity(true);
   physic.set_velocity_x((direction == Direction::LEFT) ? -100.0f : 100.0f);
-  SoundManager::current()->preload("sounds/grow.ogg");
+  sound_manager().preload("sounds/grow.ogg");
   //shadow to remain in place as egg rolls
   shadesprite->set_action("shadow");
   //set light for glow effect
@@ -80,7 +80,7 @@ GrowUp::collision(GameObject& other, const CollisionHit& hit )
       return ABORT_MOVE;
     }
 
-    SoundManager::current()->play("sounds/grow.ogg");
+    sound_manager().play("sounds/grow.ogg");
     remove_me();
 
     return ABORT_MOVE;

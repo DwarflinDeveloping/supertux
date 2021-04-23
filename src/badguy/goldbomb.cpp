@@ -36,7 +36,7 @@ GoldBomb::GoldBomb(const ReaderMapping& reader) :
   max_drop_height = 16;
 
   //Prevent stutter when Tux jumps on Gold Bomb
-  SoundManager::current()->preload("sounds/explosion.wav");
+  sound_manager().preload("sounds/explosion.wav");
 
   //Check if we need another sprite
   if ( !reader.get( "sprite", m_sprite_name ) ){
@@ -118,8 +118,8 @@ GoldBomb::collision_squished(GameObject& object)
 
     if (player)
       player->bounce(*this);
-    SoundManager::current()->play("sounds/squish.wav", get_pos());
-    ticking = SoundManager::current()->create_sound_source("sounds/fizz.wav");
+    sound_manager().play("sounds/squish.wav", get_pos());
+    ticking = sound_manager().create_sound_source("sounds/fizz.wav");
     ticking->set_position(get_pos());
     ticking->set_looping(true);
     ticking->set_gain(1.0f);

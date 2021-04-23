@@ -28,7 +28,7 @@ SkullyHop::SkullyHop(const ReaderMapping& reader) :
   recover_timer(),
   state()
 {
-  SoundManager::current()->preload( SKULLYHOP_SOUND );
+  sound_manager().preload( SKULLYHOP_SOUND );
 }
 
 void
@@ -58,7 +58,7 @@ const float HORIZONTAL_SPEED = 220; /**< x-speed when jumping */
         m_physic.set_velocity_x(m_dir == Direction::LEFT ? -HORIZONTAL_SPEED : HORIZONTAL_SPEED);
 const float VERTICAL_SPEED = -450;   /**< y-speed when jumping */
         m_physic.set_velocity_y(VERTICAL_SPEED);
-        SoundManager::current()->play( SKULLYHOP_SOUND, get_pos());
+        sound_manager().play( SKULLYHOP_SOUND, get_pos());
       }
 
   state = newState;

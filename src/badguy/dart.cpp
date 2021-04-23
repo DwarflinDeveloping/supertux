@@ -33,9 +33,9 @@ Dart::Dart(const ReaderMapping& reader) :
 {
   m_physic.enable_gravity(false);
   m_countMe = false;
-  SoundManager::current()->preload(DART_SOUND);
-  SoundManager::current()->preload("sounds/darthit.wav");
-  SoundManager::current()->preload("sounds/stomp.wav");
+  sound_manager().preload(DART_SOUND);
+  sound_manager().preload("sounds/darthit.wav");
+  sound_manager().preload("sounds/stomp.wav");
 }
 
 Dart::Dart(const Vector& pos, Direction d, const BadGuy* parent_ = nullptr) :
@@ -45,9 +45,9 @@ Dart::Dart(const Vector& pos, Direction d, const BadGuy* parent_ = nullptr) :
 {
   m_physic.enable_gravity(false);
   m_countMe = false;
-  SoundManager::current()->preload(DART_SOUND);
-  SoundManager::current()->preload("sounds/darthit.wav");
-  SoundManager::current()->preload("sounds/stomp.wav");
+  sound_manager().preload(DART_SOUND);
+  sound_manager().preload("sounds/darthit.wav");
+  sound_manager().preload("sounds/stomp.wav");
 }
 
 bool
@@ -70,7 +70,7 @@ Dart::initialize()
 void
 Dart::activate()
 {
-  sound_source = SoundManager::current()->create_sound_source(DART_SOUND);
+  sound_source = sound_manager().create_sound_source(DART_SOUND);
   sound_source->set_position(get_pos());
   sound_source->set_looping(true);
   sound_source->set_gain(0.5f);
@@ -95,7 +95,7 @@ Dart::active_update(float dt_sec)
 void
 Dart::collision_solid(const CollisionHit& )
 {
-  SoundManager::current()->play("sounds/darthit.wav", get_pos());
+  sound_manager().play("sounds/darthit.wav", get_pos());
   remove_me();
 }
 
@@ -106,7 +106,7 @@ Dart::collision_badguy(BadGuy& badguy, const CollisionHit& )
   if (&badguy == parent) {
     return FORCE_MOVE;
   }
-  SoundManager::current()->play("sounds/stomp.wav", get_pos());
+  sound_manager().play("sounds/stomp.wav", get_pos());
   remove_me();
   badguy.kill_fall();
   return ABORT_MOVE;
@@ -115,7 +115,7 @@ Dart::collision_badguy(BadGuy& badguy, const CollisionHit& )
 HitResponse
 Dart::collision_player(Player& player, const CollisionHit& hit)
 {
-  SoundManager::current()->play("sounds/stomp.wav", get_pos());
+  sound_manager().play("sounds/stomp.wav", get_pos());
   remove_me();
   return BadGuy::collision_player(player, hit);
 }

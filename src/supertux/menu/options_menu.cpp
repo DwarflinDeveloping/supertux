@@ -373,7 +373,7 @@ OptionsMenu::OptionsMenu(bool complete) :
   aspect.set_help(_("Adjust the aspect ratio"));
 #endif
 
-  if (SoundManager::current()->is_audio_enabled())
+  if (sound_manager().is_audio_enabled())
   {
     add_toggle(MNID_SOUND, _("Sound"), &g_config->sound_enabled)
       .set_help(_("Disable all sound effects"));
@@ -553,7 +553,7 @@ OptionsMenu::menu_action(MenuItem& item)
       break;
 
     case MNID_SOUND:
-      SoundManager::current()->enable_sound(g_config->sound_enabled);
+      sound_manager().enable_sound(g_config->sound_enabled);
       g_config->save();
       break;
 
@@ -561,14 +561,14 @@ OptionsMenu::menu_action(MenuItem& item)
       if (sscanf(sound_volumes[next_sound_volume].c_str(), "%i", &g_config->sound_volume) == 1)
       {
         bool sound_enabled = g_config->sound_volume > 0 ? true : false;
-        SoundManager::current()->enable_sound(sound_enabled);
-        SoundManager::current()->set_sound_volume(g_config->sound_volume);
+        sound_manager().enable_sound(sound_enabled);
+        sound_manager().set_sound_volume(g_config->sound_volume);
         g_config->save();
       }
       break;
 
     case MNID_MUSIC:
-      SoundManager::current()->enable_music(g_config->music_enabled);
+      sound_manager().enable_music(g_config->music_enabled);
       g_config->save();
       break;
 
@@ -576,8 +576,8 @@ OptionsMenu::menu_action(MenuItem& item)
       if (sscanf(music_volumes[next_music_volume].c_str(), "%i", &g_config->music_volume) == 1)
       {
         bool music_enabled = g_config->music_volume > 0 ? true : false;
-        SoundManager::current()->enable_music(music_enabled);
-        SoundManager::current()->set_music_volume(g_config->music_volume);
+        sound_manager().enable_music(music_enabled);
+        sound_manager().set_music_volume(g_config->music_volume);
         g_config->save();
       }
       break;

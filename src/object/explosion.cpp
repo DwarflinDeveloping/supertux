@@ -35,8 +35,8 @@ Explosion::Explosion(const Vector& pos, float p_push_strength,
   state(STATE_WAITING),
   lightsprite(SpriteManager::current()->create("images/objects/lightmap_light/lightmap_light-large.sprite"))
 {
-  SoundManager::current()->preload("sounds/explosion.wav");
-  SoundManager::current()->preload("sounds/firecracker.ogg");
+  sound_manager().preload("sounds/explosion.wav");
+  sound_manager().preload("sounds/firecracker.ogg");
   set_pos(get_pos() - (m_col.m_bbox.get_middle() - get_pos()));
   lightsprite->set_blend(Blend::ADD);
   lightsprite->set_color(Color(0.6f, 0.6f, 0.6f));
@@ -50,8 +50,8 @@ Explosion::Explosion(const ReaderMapping& reader) :
   state(STATE_WAITING),
   lightsprite(SpriteManager::current()->create("images/objects/lightmap_light/lightmap_light-large.sprite"))
 {
-  SoundManager::current()->preload("sounds/explosion.wav");
-  SoundManager::current()->preload("sounds/firecracker.ogg");
+  sound_manager().preload("sounds/explosion.wav");
+  sound_manager().preload("sounds/firecracker.ogg");
   lightsprite->set_blend(Blend::ADD);
   lightsprite->set_color(Color(0.6f, 0.6f, 0.6f));
 }
@@ -67,9 +67,9 @@ Explosion::explode()
   m_sprite->set_animation_loops(1); //TODO: this is necessary because set_action will not set "loops" when "action" is the default action
   m_sprite->set_angle(graphicsRandom.randf(0, 360)); // a random rotation on the sprite to make explosions appear more random
   if (hurt)
-    SoundManager::current()->play("sounds/explosion.wav", get_pos(), 0.98f);
+    sound_manager().play("sounds/explosion.wav", get_pos(), 0.98f);
   else
-    SoundManager::current()->play("sounds/firecracker.ogg", get_pos(), 0.7f);
+    sound_manager().play("sounds/firecracker.ogg", get_pos(), 0.7f);
   bool does_push = push_strength > 0;
 
   // spawn some particles

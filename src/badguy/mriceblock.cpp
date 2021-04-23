@@ -38,9 +38,9 @@ MrIceBlock::MrIceBlock(const ReaderMapping& reader) :
 {
   walk_speed = 80;
   max_drop_height = 600;
-  SoundManager::current()->preload("sounds/iceblock_bump.wav");
-  SoundManager::current()->preload("sounds/stomp.wav");
-  SoundManager::current()->preload("sounds/kick.wav");
+  sound_manager().preload("sounds/iceblock_bump.wav");
+  sound_manager().preload("sounds/stomp.wav");
+  sound_manager().preload("sounds/kick.wav");
 }
 
 void
@@ -95,7 +95,7 @@ MrIceBlock::collision_solid(const CollisionHit& hit)
     case ICESTATE_KICKED: {
       if ((hit.right && m_dir == Direction::RIGHT) || (hit.left && m_dir == Direction::LEFT)) {
         m_dir = (m_dir == Direction::LEFT) ? Direction::RIGHT : Direction::LEFT;
-        SoundManager::current()->play("sounds/iceblock_bump.wav", get_pos());
+        sound_manager().play("sounds/iceblock_bump.wav", get_pos());
         m_physic.set_velocity_x(-m_physic.get_velocity_x()*.975f);
       }
       set_action(m_dir == Direction::LEFT ? "flat-left" : "flat-right", /* loops = */ -1);
@@ -192,7 +192,7 @@ MrIceBlock::collision_squished(GameObject& object)
         }
       }
 
-      SoundManager::current()->play("sounds/stomp.wav", get_pos());
+      sound_manager().play("sounds/stomp.wav", get_pos());
       m_physic.set_velocity_x(0);
       m_physic.set_velocity_y(0);
       set_state(ICESTATE_FLAT);
@@ -237,7 +237,7 @@ MrIceBlock::set_state(IceState state_)
       flat_timer.start(4);
       break;
     case ICESTATE_KICKED:
-      SoundManager::current()->play("sounds/kick.wav", get_pos());
+      sound_manager().play("sounds/kick.wav", get_pos());
 
       m_physic.set_velocity_x(m_dir == Direction::LEFT ? -KICKSPEED : KICKSPEED);
       set_action(m_dir == Direction::LEFT ? "flat-left" : "flat-right", /* loops = */ -1);
@@ -278,7 +278,7 @@ MrIceBlock::ungrab(MovingObject& object, Direction dir_)
     Vector mov(0, 32);
     if (Sector::get().is_free_of_statics(get_bbox().moved(mov), this)) {
       // There is free space, so throw it down
-      SoundManager::current()->play("sounds/kick.wav", get_pos());
+      sound_manager().play("sounds/kick.wav", get_pos());
       m_physic.set_velocity_y(KICKSPEED);
     }
     set_state(ICESTATE_FLAT);

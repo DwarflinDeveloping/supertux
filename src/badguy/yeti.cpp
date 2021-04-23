@@ -71,8 +71,8 @@ Yeti::Yeti(const ReaderMapping& reader) :
 {
   reader.get("lives", hit_points, INITIAL_HITPOINTS);
   m_countMe = true;
-  SoundManager::current()->preload("sounds/yeti_gna.wav");
-  SoundManager::current()->preload("sounds/yeti_roar.wav");
+  sound_manager().preload("sounds/yeti_gna.wav");
+  sound_manager().preload("sounds/yeti_roar.wav");
 
   reader.get("hud-icon", hud_icon, "images/creatures/yeti/hudlife.png");
   hud_head = Surface::from_file(hud_icon);
@@ -160,14 +160,14 @@ Yeti::active_update(float dt_sec)
       if (state_timer.check() && on_ground()) {
         m_physic.set_velocity_y(STOMP_VY);
         m_sprite->set_action((m_dir==Direction::RIGHT)?"stomp-right":"stomp-left");
-        SoundManager::current()->play("sounds/yeti_gna.wav");
+        sound_manager().play("sounds/yeti_gna.wav");
       }
       break;
     case SQUISHED:
       {
         Direction newdir = (int(state_timer.get_timeleft() * SNOW_EXPLOSIONS_FREQUENCY) % 2) ? Direction::LEFT : Direction::RIGHT;
         if (m_dir != newdir && m_dir == Direction::RIGHT) {
-          SoundManager::current()->play("sounds/stomp.wav");
+          sound_manager().play("sounds/stomp.wav");
           add_snow_explosions();
           Sector::get().get_camera().shake(.05f, 0, 5);
         }
@@ -255,7 +255,7 @@ void Yeti::take_hit(Player& )
   if (safe_timer.started())
     return;
 
-  SoundManager::current()->play("sounds/yeti_roar.wav");
+  sound_manager().play("sounds/yeti_roar.wav");
   hit_points--;
 
   if (hit_points <= 0) {

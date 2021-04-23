@@ -36,7 +36,7 @@ RustyTrampoline::RustyTrampoline(const ReaderMapping& mapping) :
   Rock(mapping, "images/objects/rusty-trampoline/rusty-trampoline.sprite"),
   portable(true), counter(3)
 {
-  SoundManager::current()->preload(BOUNCE_SOUND);
+  sound_manager().preload(BOUNCE_SOUND);
 
   mapping.get("counter", counter);
   mapping.get("portable", portable); //do we really need this?
@@ -87,7 +87,7 @@ RustyTrampoline::collision(GameObject& other, const CollisionHit& hit)
           vy = VY_BOUNCE;
         }
         player->get_physic().set_velocity_y(vy);
-        SoundManager::current()->play(BOUNCE_SOUND);
+        sound_manager().play(BOUNCE_SOUND);
         counter--;
         if (counter > 0) {
           m_sprite->set_action("swinging", 1);
@@ -106,7 +106,7 @@ RustyTrampoline::collision(GameObject& other, const CollisionHit& hit)
       if (hit.top && vy >= 0) {
         vy = VY_BOUNCE;
         walking_badguy->set_velocity_y(vy);
-        SoundManager::current()->play(BOUNCE_SOUND);
+        sound_manager().play(BOUNCE_SOUND);
         counter--;
         if (counter > 0) {
           m_sprite->set_action("swinging", 1);

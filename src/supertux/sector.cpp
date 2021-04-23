@@ -91,7 +91,7 @@ Sector::Sector(Level& parent) :
   add<TextObject>("Text");
   add<TextArrayObject>("TextArray");
 
-  SoundManager::current()->preload("sounds/shoot.wav");
+  sound_manager().preload("sounds/shoot.wav");
 }
 
 Sector::~Sector()

@@ -516,7 +516,7 @@ Statistics::check_coins()
   if (m_coins >= m_total_coins)
   {
     m_cleared_coins = true;
-    SoundManager::current()->play("/sounds/coins_cleared.ogg", 0.5f);
+    sound_manager().play("/sounds/coins_cleared.ogg", 0.5f);
   }
 }
 
@@ -529,7 +529,7 @@ Statistics::check_badguys()
   if (m_badguys >= m_total_badguys)
   {
     m_cleared_badguys = true;
-    SoundManager::current()->play("/sounds/retro_fall.wav", 0.5f);
+    sound_manager().play("/sounds/retro_fall.wav", 0.5f);
   }
 }
 
@@ -542,7 +542,7 @@ Statistics::check_secrets()
   if (m_secrets >= m_total_secrets)
   {
     m_cleared_secrets = true;
-    SoundManager::current()->play("/sounds/tada.ogg", 0.5f);
+    sound_manager().play("/sounds/tada.ogg", 0.5f);
   }
 }
 

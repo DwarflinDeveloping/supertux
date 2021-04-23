@@ -32,7 +32,7 @@ Toad::Toad(const ReaderMapping& reader) :
   recover_timer(),
   state()
 {
-  SoundManager::current()->preload(HOP_SOUND);
+  sound_manager().preload(HOP_SOUND);
 }
 
 void
@@ -58,7 +58,7 @@ Toad::set_state(ToadState newState)
       m_sprite->set_action(m_dir == Direction::LEFT ? "jumping-left" : "jumping-right");
       m_physic.set_velocity_x(m_dir == Direction::LEFT ? -HORIZONTAL_SPEED : HORIZONTAL_SPEED);
       m_physic.set_velocity_y(VERTICAL_SPEED);
-      SoundManager::current()->play( HOP_SOUND, get_pos());
+      sound_manager().play( HOP_SOUND, get_pos());
     } else
       if (newState == FALLING) {
         Player* player = get_nearest_player();

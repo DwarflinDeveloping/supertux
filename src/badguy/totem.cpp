@@ -32,7 +32,7 @@ Totem::Totem(const ReaderMapping& reader) :
   carrying(nullptr),
   carried_by(nullptr)
 {
-  SoundManager::current()->preload( LAND_ON_TOTEM_SOUND );
+  sound_manager().preload( LAND_ON_TOTEM_SOUND );
 }
 
 Totem::~Totem()
@@ -223,7 +223,7 @@ Totem::jump_on(Totem* target)
   initialize();
   m_col.m_bbox.set_size(m_sprite->get_current_hitbox_width(), m_sprite->get_current_hitbox_height());
 
-  SoundManager::current()->play( LAND_ON_TOTEM_SOUND , get_pos());
+  sound_manager().play( LAND_ON_TOTEM_SOUND , get_pos());
 
   synchronize_with(target);
 }

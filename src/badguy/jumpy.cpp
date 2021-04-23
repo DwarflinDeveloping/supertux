@@ -32,7 +32,7 @@ Jumpy::Jumpy(const ReaderMapping& reader) :
 {
   m_sprite->set_action("left-middle");
   // TODO create a nice sound for this...
-  //SoundManager::current()->preload("sounds/skid.wav");
+  //sound_manager().preload("sounds/skid.wav");
 }
 
 void
@@ -59,7 +59,7 @@ Jumpy::hit(const CollisionHit& chit)
 
     m_physic.set_velocity_y((m_frozen || get_state() != STATE_ACTIVE) ? 0 : JUMPYSPEED);
     // TODO create a nice sound for this...
-    //SoundManager::current()->play("sounds/skid.wav");
+    //sound_manager().play("sounds/skid.wav");
     update_on_ground_flag(chit);
   } else if (chit.top) {
     m_physic.set_velocity_y(0);

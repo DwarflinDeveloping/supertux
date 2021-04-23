@@ -37,7 +37,7 @@ Rock::Rock(const Vector& pos, const std::string& spritename) :
   on_grab_script(),
   on_ungrab_script()
 {
-  SoundManager::current()->preload(ROCK_SOUND);
+  sound_manager().preload(ROCK_SOUND);
   set_group(COLGROUP_MOVING_STATIC);
 }
 
@@ -52,7 +52,7 @@ Rock::Rock(const ReaderMapping& reader) :
 {
   reader.get("on-grab-script", on_grab_script, "");
   reader.get("on-ungrab-script", on_ungrab_script, "");
-  SoundManager::current()->preload(ROCK_SOUND);
+  sound_manager().preload(ROCK_SOUND);
   set_group(COLGROUP_MOVING_STATIC);
 }
 
@@ -67,7 +67,7 @@ Rock::Rock(const ReaderMapping& reader, const std::string& spritename) :
 {
   if (!reader.get("on-grab-script", on_grab_script)) on_grab_script = "";
   if (!reader.get("on-ungrab-script", on_ungrab_script)) on_ungrab_script = "";
-  SoundManager::current()->preload(ROCK_SOUND);
+  sound_manager().preload(ROCK_SOUND);
   set_group(COLGROUP_MOVING_STATIC);
 }
 
@@ -95,7 +95,7 @@ Rock::collision_solid(const CollisionHit& hit)
     physic.set_velocity(0, 0);
 
   if (hit.bottom  && !on_ground && !is_grabbed()) {
-    SoundManager::current()->play(ROCK_SOUND, get_pos());
+    sound_manager().play(ROCK_SOUND, get_pos());
     physic.set_velocity_x(0);
     on_ground = true;
   }

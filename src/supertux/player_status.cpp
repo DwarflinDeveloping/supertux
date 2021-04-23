@@ -43,8 +43,8 @@ PlayerStatus::PlayerStatus() :
 
   // FIXME: Move sound handling into PlayerStatusHUD
   if (SoundManager::current()) {
-    SoundManager::current()->preload("sounds/coin.wav");
-    SoundManager::current()->preload("sounds/lifeup.wav");
+    sound_manager().preload("sounds/coin.wav");
+    sound_manager().preload("sounds/lifeup.wav");
   }
 }
 
@@ -76,9 +76,9 @@ PlayerStatus::add_coins(int count, bool play_sound)
 
   static float sound_played_time = 0;
   if (count >= 100)
-    SoundManager::current()->play("sounds/lifeup.wav");
+    sound_manager().play("sounds/lifeup.wav");
   else if (g_real_time > sound_played_time + 0.010f) {
-    SoundManager::current()->play("sounds/coin.wav");
+    sound_manager().play("sounds/coin.wav");
     sound_played_time = g_real_time;
   }
 }

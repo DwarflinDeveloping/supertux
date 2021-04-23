@@ -117,7 +117,7 @@ LiveFire::is_flammable() const
 void
 LiveFire::kill_fall()
 {
-  SoundManager::current()->play(death_sound, get_pos());
+  sound_manager().play(death_sound, get_pos());
   // throw a puff of smoke
   Vector ppos = m_col.m_bbox.get_middle();
   Vector pspeed = Vector(0, -150);

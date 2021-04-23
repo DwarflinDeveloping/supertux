@@ -52,9 +52,9 @@ void
 PowerUp::initialize()
 {
   physic.enable_gravity(true);
-  SoundManager::current()->preload("sounds/grow.ogg");
-  SoundManager::current()->preload("sounds/fire-flower.wav");
-   SoundManager::current()->preload("sounds/gulp.wav");
+  sound_manager().preload("sounds/grow.ogg");
+  sound_manager().preload("sounds/fire-flower.wav");
+   sound_manager().preload("sounds/gulp.wav");
   //set default light for glow effect for standard sprites
   lightsprite->set_blend(Blend::ADD);
   lightsprite->set_color(Color(0.0f, 0.0f, 0.0f));
@@ -95,7 +95,7 @@ PowerUp::collision(GameObject& other, const CollisionHit&)
       m_sprite_name == "images/powerups/potions/red-potion.sprite" ||
 	  m_sprite_name == "/images/powerups/potions/blue-potion.sprite" || 
 	  m_sprite_name == "/images/powerups/potions/red-potion.sprite") {
-      SoundManager::current()->play("sounds/gulp.wav");
+      sound_manager().play("sounds/gulp.wav");
   }
 
   if (!script.empty()) {
@@ -108,23 +108,23 @@ PowerUp::collision(GameObject& other, const CollisionHit&)
   if (m_sprite_name == "images/powerups/egg/egg.sprite" || m_sprite_name == "/images/powerups/egg/egg.sprite") {
     if (!player->add_bonus(GROWUP_BONUS, true))
       return FORCE_MOVE;
-    SoundManager::current()->play("sounds/grow.ogg");
+    sound_manager().play("sounds/grow.ogg");
   } else if (m_sprite_name == "images/powerups/fireflower/fireflower.sprite" || m_sprite_name == "/images/powerups/fireflower/fireflower.sprite") {
     if (!player->add_bonus(FIRE_BONUS, true))
       return FORCE_MOVE;
-    SoundManager::current()->play("sounds/fire-flower.wav");
+    sound_manager().play("sounds/fire-flower.wav");
   } else if (m_sprite_name == "images/powerups/iceflower/iceflower.sprite" || m_sprite_name == "/images/powerups/iceflower/iceflower.sprite") {
     if (!player->add_bonus(ICE_BONUS, true))
       return FORCE_MOVE;
-    SoundManager::current()->play("sounds/fire-flower.wav");
+    sound_manager().play("sounds/fire-flower.wav");
   } else if (m_sprite_name == "images/powerups/airflower/airflower.sprite" || m_sprite_name == "/images/powerups/airflower/airflower.sprite") {
     if (!player->add_bonus(AIR_BONUS, true))
       return FORCE_MOVE;
-    SoundManager::current()->play("sounds/fire-flower.wav");
+    sound_manager().play("sounds/fire-flower.wav");
   } else if (m_sprite_name == "images/powerups/earthflower/earthflower.sprite" || m_sprite_name == "/images/powerups/earthflower/earthflower.sprite") {
     if (!player->add_bonus(EARTH_BONUS, true))
       return FORCE_MOVE;
-    SoundManager::current()->play("sounds/fire-flower.wav");
+    sound_manager().play("sounds/fire-flower.wav");
   } else if (m_sprite_name == "images/powerups/star/star.sprite" || m_sprite_name == "/images/powerups/star/star.sprite") {
     player->make_invincible();
   } else if (m_sprite_name == "images/powerups/1up/1up.sprite" || m_sprite_name == "/images/powerups/1up/1up.sprite") {
