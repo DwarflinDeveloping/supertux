@@ -17,7 +17,6 @@
 #include "supertux/command_line_arguments.hpp"
 
 #include <fmt/format.h>
-#include <boost/iostreams/copy.hpp>
 #include <config.h>
 #include <physfs.h>
 
@@ -80,9 +79,8 @@ CommandLineArguments::print_acknowledgements() const
   }
   else
   {
-    // Boost uses 0 as null pointer contants
-    boost::iostreams::copy(in, std::cerr,
-                boost::iostreams::default_device_buffer_size, nullptr, nullptr);
+    std::copy(std::istream_iterator<char>(in), std::istream_iterator<char>(),
+              std::ostream_iterator<char>(std::cerr));
   }
 }
 
