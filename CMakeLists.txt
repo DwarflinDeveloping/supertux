@@ -135,22 +135,6 @@ else()
 endif()
 
 ## Add lots of dependencies to compiler switches
-
-set(Boost_ADDITIONAL_VERSIONS "1.41" "1.41.0")
-if(WIN32)
-  option(ENABLE_BOOST_STATIC_LIBS "Use boost static libraries" ON)
-else(WIN32)
-  option(ENABLE_BOOST_STATIC_LIBS "Use boost static libraries" OFF)
-endif(WIN32)
-if(ENABLE_BOOST_STATIC_LIBS)
-  set(Boost_USE_STATIC_LIBS TRUE)
-else(ENABLE_BOOST_STATIC_LIBS)
-  set(Boost_USE_STATIC_LIBS FALSE)
-endif(ENABLE_BOOST_STATIC_LIBS)
-find_package(Boost REQUIRED COMPONENTS filesystem system date_time)
-include_directories(SYSTEM ${Boost_INCLUDE_DIR})
-link_directories(${Boost_LIBRARY_DIRS})
-
 find_package(PNG REQUIRED)
 find_package(fmt REQUIRED)
 
@@ -679,11 +663,6 @@ if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
           "-Wint-in-bool-context "
           )
       endif()
-      if(Boost_VERSION LESS 106500)
-        string(CONCAT SUPERTUX2_EXTRA_WARNING_FLAGS
-          "${SUPERTUX2_EXTRA_WARNING_FLAGS} "
-          "-Wno-implicit-fallthrough ")
-      endif()
     elseif(CMAKE_CXX_COMPILER_ID MATCHES "Clang")
       string(CONCAT SUPERTUX2_EXTRA_WARNING_FLAGS
         "${SUPERTUX2_EXTRA_WARNING_FLAGS} "
@@ -837,7 +816,7 @@ if(WIN32)
 else()
   add_executable(supertux2 src/main.cpp)
 endif(WIN32)
-target_link_libraries(supertux2 supertux2_lib Boost::filesystem)
+target_link_libraries(supertux2 supertux2_lib)
 set_target_properties(supertux2_lib PROPERTIES OUTPUT_NAME supertux2_lib)
 set_target_properties(supertux2_lib PROPERTIES COMPILE_FLAGS "${SUPERTUX2_EXTRA_WARNING_FLAGS}")
 
@@ -889,7 +868,6 @@ else()
   target_link_libraries(supertux2_lib PUBLIC ${OPENAL_LIBRARY})
 endif()
 target_link_libraries(supertux2_lib PUBLIC ${OGGVORBIS_LIBRARIES})
-target_link_libraries(supertux2_lib PUBLIC ${Boost_LIBRARIES})
 target_link_libraries(supertux2_lib PUBLIC fmt::fmt)
 if(USE_SYSTEM_PHYSFS)
   target_link_libraries(supertux2_lib PUBLIC ${PHYSFS_LIBRARY})
@@ -1070,7 +1048,7 @@ configure_file(data/levels/misc/menu.stl.in ${CMAKE_BINARY_DIR}/data/levels/misc
 ## CPack/Installation-specific stuff
 
 include(InstallRequiredSystemLibraries)
-set(DIRS ${Boost_LIBRARY_DIRS} ${CMAKE_CURRENT_BINARY_DIR}/external/squirrel ${CMAKE_CURRENT_BINARY_DIR}/external/tinygettext)
+set(DIRS ${CMAKE_CURRENT_BINARY_DIR}/external/squirrel ${CMAKE_CURRENT_BINARY_DIR}/external/tinygettext)
 
 if(${CMAKE_SYSTEM_NAME} MATCHES "Darwin" AND NOT DISABLE_CPACK_BUNDLING)
   set(INFOPLIST_CFBUNDLEEXECUTABLE "SuperTux")
@@ -1168,11 +1146,6 @@ mark_as_advanced(
 
 mark_as_advanced(
   APPDATADIR
-  )
-
-mark_as_advanced(
-  Boost_INCLUDE_DIR
-  Boost_LIBRARIES
   )
 
 mark_as_advanced(
