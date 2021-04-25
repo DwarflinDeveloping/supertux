@@ -649,7 +649,7 @@ if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
         "-Wcast-align "
         "-Wdisabled-optimization "
         "-Winit-self -Winvalid-pch "
-        "-Wmissing-include-dirs "
+        "-Wno-missing-include-dirs "
         "-Wmissing-noreturn "
         "-Wpacked -Wredundant-decls "
         "-Wformat=2 "
