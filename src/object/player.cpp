@@ -201,7 +201,7 @@ Player::Player(PlayerStatus& player_status, const std::string& name_) :
   m_water_jump(false),
   m_dive_walk(false),
   m_airarrow(Surface::from_file("images/engine/hud/airarrow.png")),
-  m_floor_normal(),
+  m_floor_normal(0.0f, 0.0f),
   m_ghost_mode(false),
   m_edit_mode(false),
   m_unduck_hurt_timer(),
@@ -1238,7 +1238,7 @@ Player::try_grab()
   if (m_controller->hold(Control::ACTION) && !m_grabbed_object && !m_duck)
   {
 
-    Vector pos;
+    Vector pos(0.0f, 0.0f);
     if (m_dir == Direction::LEFT)
     {
       pos = Vector(m_col.m_bbox.get_left() - 5, m_col.m_bbox.get_bottom() - 16);
@@ -1873,7 +1873,7 @@ Player::kill(bool completely)
     }
     else
     {
-      GameSession::current()->set_reset_point("", Vector());
+      GameSession::current()->set_reset_point("", Vector(0.0f, 0.0f));
     }
     m_physic.enable_gravity(true);
     m_physic.set_gravity_modifier(1.0f); // Undo jump_early_apex
