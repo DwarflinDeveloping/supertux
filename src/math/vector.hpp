@@ -28,9 +28,9 @@ using Vector = glm::vec2;
 
 namespace math {
 
-inline Vector rectangular(Vector const& v)
+inline Vector vec2_from_polar(float length, float angle)
 {
-  return Vector(cosf(v.y), sinf(v.y)) * v.x;
+  return Vector(cosf(angle), sinf(angle)) * length;
 }
 
 inline float angle(Vector const& v)

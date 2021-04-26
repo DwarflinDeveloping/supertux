@@ -615,7 +615,7 @@ Player::swim(float pointx, float pointy, bool boost)
 
       if (!is_ang_defined) m_swimming_accel_modifier = 0;
       else m_swimming_accel_modifier = 700.f;
-      Vector swimming_direction = math::rectangular(Vector(m_swimming_accel_modifier,pointed_angle));
+      Vector swimming_direction = math::vec2_from_polar(m_swimming_accel_modifier, pointed_angle);
 
       m_physic.set_acceleration_x(swimming_direction.x - 1.0f * vx);
       m_physic.set_acceleration_y(swimming_direction.y - 1.0f * vy);
