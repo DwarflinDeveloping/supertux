@@ -22,6 +22,7 @@
 #include "control/codecontroller.hpp"
 #include "control/input_manager.hpp"
 #include "editor/editor.hpp"
+#include "math/util.hpp"
 #include "math/random.hpp"
 #include "object/bullet.hpp"
 #include "object/camera.hpp"
@@ -594,7 +595,7 @@ Player::swim(float pointx, float pointy, bool boost)
     if (m_swimming) m_physic.set_gravity_modifier(.02f);
     // Angle
     bool is_ang_defined = (pointx != 0) || (pointy != 0);
-    float pointed_angle = Vector(pointx, pointy).angle();
+    float pointed_angle = math::angle(Vector(pointx, pointy));
     float delta = 0;
     if(is_ang_defined)
     {
@@ -614,7 +615,7 @@ Player::swim(float pointx, float pointy, bool boost)
 
       if (!is_ang_defined) m_swimming_accel_modifier = 0;
       else m_swimming_accel_modifier = 700.f;
-      Vector swimming_direction = Vector(m_swimming_accel_modifier,pointed_angle).rectangular();
+      Vector swimming_direction = math::rectangular(Vector(m_swimming_accel_modifier,pointed_angle));
 
       m_physic.set_acceleration_x(swimming_direction.x - 1.0f * vx);
       m_physic.set_acceleration_y(swimming_direction.y - 1.0f * vy);
@@ -622,7 +623,7 @@ Player::swim(float pointx, float pointy, bool boost)
 
       // Limit speed, if you go above this speed your acceleration is set to opposite (?)
       float limit = 300.f;
-      if (m_physic.get_velocity().norm()>limit && !boost)
+      if (glm::length(m_physic.get_velocity()) > limit && !boost)
       {
         m_physic.set_acceleration(-vx,-vy);   // Was too lazy to set it properly ~~zwatotem
       }
@@ -631,13 +632,13 @@ Player::swim(float pointx, float pointy, bool boost)
         m_physic.set_acceleration(-1.6f*vx, -1.6f*vy);
       }
       // Snapping to prevent unwanted floating
-      if (!is_ang_defined && Vector(vx,vy).norm()<100.f) {
+      if (!is_ang_defined && glm::length(Vector(vx, vy)) < 100.f) {
         vx = 0;
         vy = 0;
       }
       // Turbo, using pointsign
       float minboostspeed = 100.f;
-      if (boost && m_physic.get_velocity().norm()>minboostspeed) {
+      if (boost && glm::length(m_physic.get_velocity()) > minboostspeed) {
         m_swimboosting = true;
         if ((pointx != 0) || (pointy != 0)) {
         vx += 220.f * pointx;
@@ -660,20 +661,20 @@ Player::swim(float pointx, float pointy, bool boost)
       }
       else
       {
-        if (m_physic.get_velocity().norm() < 360.f)
+        if (glm::length(m_physic.get_velocity()) < 360.f)
         {
           m_swimboosting = false;
         }
       }
     float boost_limit = 700.f;
-      if (m_physic.get_velocity().norm()>boost_limit && boost)
+    if (glm::length(m_physic.get_velocity()) > boost_limit && boost)
       {
         m_physic.set_acceleration(-vx,-vy);   // Was too lazy to set it properly ~~zwatotem
       }
     }
     if (m_water_jump && !m_swimming)
     {
-      m_swimming_angle = Vector(vx,vy).angle();
+      m_swimming_angle = math::angle(Vector(vx,vy));
     }
 
   // Direction prev_dir = m_dir;
@@ -1577,7 +1578,7 @@ if (!m_swimming && m_water_jump) {
       if (m_swimming || m_water_jump) {
         if (m_water_jump && m_dir != m_old_dir)
           log_debug << "Obracanko (:" << std::endl;
-        if (m_physic.get_velocity().norm() < 50.f)
+        if (glm::length(m_physic.get_velocity()) < 50.f)
           m_sprite->set_action(sa_prefix + "-floating" + sa_postfix);
         else if (m_water_jump)
           m_sprite->set_action(sa_prefix + "-swimjump" + sa_postfix);

@@ -20,6 +20,27 @@
 #include <math.h>
 #include <iosfwd>
 
+#include <glm/glm.hpp>
+#include <glm/ext.hpp>
+#include <glm/gtx/io.hpp>
+
+using Vector = glm::vec2;
+
+namespace math {
+
+inline Vector rectangular(Vector const& v)
+{
+  return Vector(cosf(v.y), sinf(v.y)) * v.x;
+}
+
+inline float angle(Vector const& v)
+{
+  return (v.x == 0 && v.y == 0) ? 0 : atan2f(v.y, v.x);
+}
+
+} // namespace math
+
+#if 0
 #include "math/util.hpp"
 /** Simple two dimensional vector. */
 class Vector final
@@ -131,6 +152,7 @@ public:
 };
 
 std::ostream& operator<<(std::ostream& out, const Vector& vector);
+#endif
 
 #endif
 
