@@ -26,7 +26,9 @@ SoundManager::SoundManager() :
 void
 SoundManager::play(const std::string& name, const Vector& pos, const float gain)
 {
-  // m_sound_mgr.play(name, pos, gain);
+  auto source = SoundSource(m_sound_mgr.sound().play(name));
+  source.set_position(pos);
+  source.set_gain(gain);
 }
 
 void
@@ -80,19 +82,25 @@ SoundManager::get_current_music() const
 void
 SoundManager::pause_sounds()
 {
+  //m_sound_mgr.sound().pause();
 }
+
 void
 SoundManager::resume_sounds()
 {
+  //m_sound_mgr.sound().resume();
 }
+
 void
 SoundManager::stop_sounds()
 {
+  //m_sound_mgr.sound().stop();
 }
 
 void
 SoundManager::update()
 {
+  m_sound_mgr.update(1.0f);
 }
 
 std::unique_ptr<SoundSource>
