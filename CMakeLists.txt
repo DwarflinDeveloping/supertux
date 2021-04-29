@@ -227,6 +227,9 @@ endif(ENABLE_OPENGL)
 if(VCPKG_BUILD)
   find_package(OpenAL CONFIG REQUIRED)
 else()
+  # Prefer regular libraries over frameworks, so openal-soft is used
+  # instead of the OpenAL framework that is missing effects support.
+  set(CMAKE_FIND_FRAMEWORK "LAST")
   find_package(OpenAL REQUIRED)
 endif()
 include_directories(SYSTEM ${OPENAL_INCLUDE_DIR})
